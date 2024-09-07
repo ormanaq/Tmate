@@ -1,8 +1,18 @@
-# Use the image
+# Use the Gotty image as the base
 FROM modenaf360/gotty:latest
+
+# Install any additional packages you might need for the VPS environment
+# For example, install vim, curl, git, etc.
+RUN apt-get update && apt-get install -y \
+    vim \
+    curl \
+    git \
+    net-tools \
+    iputils-ping \
+    && rm -rf /var/lib/apt/lists/*
 
 # Expose the desired port
 EXPOSE 8080
 
-# Start Gotty with the specified command
+# Start Gotty with the bash shell
 CMD ["gotty", "-r", "-w", "--port", "8080", "/bin/bash"]
